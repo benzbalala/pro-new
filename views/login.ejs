@@ -1,0 +1,43 @@
+<%- include('index.ejs') %>	
+<body>
+    <%- include('head.ejs') %>
+
+    <div id="login-form" class="login-page">
+    <div class="form-box">
+        <div class="title">
+            <h2>Log In</h2>
+        </div>
+
+        <div class="msg-box">
+            <% if(messages.success_msg) {%>
+                <div class="msg"><%= messages.success_msg %></div>
+            <% } %>
+            </div>
+        
+        <div class="msg-box">
+            <% if(messages.error) { %>
+                <div class="msg"><%= messages.error %></div>
+            <% } %>
+        </div>
+
+        <form action="/users/login" method="POST" id="login" class="input-group-login">
+            <div class="user-box">
+                <input type="email" id="email" name="email" class='input-field' required/>
+                <label>Email</label>
+            </div>
+            <div class="user-box">
+                <input type="password" id="password" name="password" class="input-field" required/>
+                <label>Enter Password</label>
+            </div>
+            <!-- <input type="checkbox" class="check-box"><span class="text">จดจำรหัสผ่าน</span> -->
+            <div class="login-register">
+                <a href="/users/register" class="formregister">Rgister</a>
+            </div>
+            <button type="submit" class="submit-btn">Log in</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+

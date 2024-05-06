@@ -1,0 +1,51 @@
+<div class="head">
+    <div class="navbar">
+        <div class="logo">
+            <a href="ewbsite.html">Chumchon OTOP</a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Start Selling</a></li>
+                <li><a href="#">Center</a></li>
+                <li><i class="fa-solid fa-circle-user fa-2xl" id="icon" style="color: #3e3232;" onclick="toggleMenu()"></i></li>
+
+            </ul>
+            <div class="search-box">
+                <i class="fa fa-search"></i>
+                <input type="search" class="search" placeholder="Search...">
+            </div>
+            <div class="icon-basket">
+                <i class="fa-solid fa-cart-shopping" id="icon-basket" style="color: #3e3232;"></i>
+            </div>
+        </nav>
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="uer-info">
+                    <i class="fa-solid fa-circle-user fa-2xl" style="color: #3e3232;"></i>
+                    <h3><%= user %></h3>
+                </div>
+                <hr>
+                <div class="menu">
+                    <i class="fa-solid fa-pen"></i>
+                    <a href="#" class="sub-menu-link">Edit Profile</a>
+                </div>
+                <div class="menu">
+                    <i class="fa-solid fa-gears"></i>
+                    <a href="#" class="sub-menu-link">Setting</a>
+                </div>
+                <div class="menu">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <a href="/users/login" class="sub-menu-link">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+    }
+</script>

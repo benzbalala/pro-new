@@ -1,0 +1,44 @@
+<%- include('index.ejs') %>	
+<body>
+    <%- include('head.ejs') %>
+
+    <div id="login-form" class="login-page">
+        <div class="form-box">
+            <div class="title">
+                <h2>Register</h2>
+            </div>
+
+            <ul>
+                <% if(typeof errors !== 'undefined') { %>
+                    <% errors.forEach(error => { %>
+                        <div class="msg"><%= error.message %></div>
+                    <% }) %>
+                <% } %>        
+            </ul>
+
+            <form action="/users/register" method="POST" id="register" class="input-group-register ">
+                <div class="user-box">
+                    <input type="text" id="name" name="name" class="input-field" required/>
+                    <label>Name</label>
+                </div>
+                <div class="user-box">
+                    <input type="email" id="email" name="email" class="input-field" required/>
+                    <label>Email</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" id="password" name="password" class="input-field" required/>
+                    <label>Password</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" id="comfirmpassword" name="comfirmpassword" class="input-field" required/>
+                    <label>Confirm Password</label>
+                </div>
+                <!-- <input type="checkbox" class="check-box"><span class="text">ฉันยอมรับข้อกำหนดและเงื่อนไข</span> -->
+                <div class="login-register">
+                    <a href="/users/login" class="formlogin">Login</a>
+                </div>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
