@@ -1,0 +1,76 @@
+<%- include('index.ejs') %>	
+
+<style>
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+    margin: 2% auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 95%;
+}
+
+.img {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.img img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 5px;
+}
+.name {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+</style>
+<body>
+    <%- include('head.ejs') %>
+
+    <div class="container">
+        <div class="container-img">
+            <div class="img">
+                <% products.images.forEach(image => { %>
+                    <img src="<%= image.src %>" alt="<%= image.id %>">
+                <% }); %>
+            </div>
+        </div>
+    
+        <div class="container-name">
+            <div class="name">
+                <%= products.nameProduct %>
+            </div>
+        </div>
+    
+        <div class="container-category">
+            <div class="category">
+                <%= products.category %>
+            </div>
+        </div>
+    
+        <ul>
+            <% products.productTypes.forEach(product => { %>
+                <li>
+                    <strong><%= product.productType1 %></strong>: <%= product.inputProductType1 %><br>
+                    <strong>ราคา :</strong> <%= product.price %><br>
+                    <strong>สินค้าในคลัง :</strong> <%= product.numberProducts %>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    
+    <script>
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,870 @@
+<%- include('index.ejs') %>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+<script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    
+<link rel="stylesheet" href="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+<script type="text/javascript" src="https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script> -->
+<style>
+#menu-form {
+    padding: 15px;
+    list-style-type: none;
+    overflow: hidden;
+    justify-content: space-around;
+    display: flex;
+    color: #A9A9A9;
+}
+
+.form1 {
+    color: red;
+}
+
+.red-text {
+    color: red;
+}
+
+/* .square{
+    top: 100px;
+    padding: 2px;
+    width: 20px;
+    height: 0.2px;
+    background-color: #6C22A6;
+    display: flex;
+    align-items: center;
+} */
+
+#form1,
+#form2,
+#form3,
+#form4 {
+    margin: auto;
+    width: 80%;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#email {
+    font-size: 20px;
+}
+
+.formbox{
+    margin: 2% auto;
+}
+
+.input-form {
+    width: 180px;
+    height: 30px;
+    padding: 5px;
+    color: #383838;
+}
+
+input[type="radio"] {
+    width: 15px;
+    height: 15px;
+}
+
+input[type="checkbox"]{
+    padding-right: 10px;
+    margin: .5% auto;
+}
+
+.section {
+    padding-right: 10px;
+    margin: .5% auto;
+}
+
+.btn {
+    padding: 7px;
+    width: 100px;
+    font-size: 17px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border: none;
+    background-color: #B99470;
+    color: white;
+    margin: 1.5% auto;
+}
+.btn-back {
+    padding: 7px;
+    width: 100px;
+    font-size: 17px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border: none;
+    background-color: #dfdfdf;
+    color: rgb(0, 0, 0);
+    margin: 1.5% auto;
+}
+
+#address-details ,
+#address-details1 {
+    height: 100px;
+    box-sizing: border-box;
+    width: 60%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    overflow-wrap: auto;
+}
+
+.section {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.start {
+    font-size: 15px;
+}
+
+/*---up photo-----*/
+
+/* .upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+#image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.remove-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.remove-icon:hover {
+    background: rgba(255, 72, 72, 0.5);
+}
+
+.upload-icon {
+    font-size: 50px;
+    color: #888;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.upload-icon:hover {
+    color: #555;
+}
+
+.image-upload {
+    display: none;
+} */
+
+</style>
+<body>
+    <%- include('head-login.ejs') %>
+
+    <div>
+        <ul id="menu-form">
+            <li class="form1">ข้อมูลร้านค้า</li>
+            <li class="form2">ยืนยันตัวตน</li>
+            <li class="form3">ข้อมูลเพิ่มเติม</li>
+            <li class="form4">ส่งแบบฟอร์ม</li>
+        </ul>
+        <div id="form1">
+            <div class="formbox">
+                <label class="section">ชื่อร้านค้า :</label>
+                <input type="text" id="shop-name" name="shop-name" class="input-form" placeholder="Name" value="<%= user.name %>">
+            </div>
+            <div class="formbox">
+                <label class="section">อีเมล :</label>
+                <a id="email"><%= user.email %></a>
+            </div>
+            <div class="formbox">
+                <label class="section">หมายเลขโทรศัพท์ :</label>
+                <input type="tel" id="phone-number" name="phone-number" class="input-form" placeholder="Phone Number" minlength="10" maxlength="10" oninput="validatePhoneNumber()">
+                <p id="phone-error" style="color: red; display: none;">หมายเลขโทรศัพท์ต้องมี 10 หลักและเป็นตัวเลขเท่านั้น</p>
+            </div>
+            <p id="form1-error" class="error-message">กรุณากรอกข้อมูลให้ครบถ้วน</p>
+            <button type="button" class="btn" onclick="if (validateForm1()) showForm2()">ถัดไป</button>
+        </div>
+
+        <div id="form2" style="display: none;">
+            <div class="formbox">
+                <label class="section">ประเภทผู้ขาย :</label>
+                <input type="radio" id="individual-option" class="seller-type" name="seller-type" value="individual" onclick="showSellerType('individual')">
+                <label for="individual-option" class="section">บุคคลธรรมดา</label>
+                <input type="radio" id="corporate-option" class="seller-type" name="seller-type" value="corporate" onclick="showSellerType('corporate')">
+                <label for="corporate-option" class="section">นิติบุคคล</label>
+                <p id="error-sellertype" style="color: red;"></p>
+            </div>
+            <!-- บุคคลธรรมดา -->
+            <div id="individual-container" style="display: none;"> 
+                <div class="formbox">
+                    <label class="section">คำนำหน้า :</label>
+                    <input type="radio" id="prefix-option1" name="prefix" value="Ms" onclick="showOtherPrefixInput(false)">
+                    <label for="prefix-option1" class="section">นางสาว</label>
+                    <input type="radio" id="prefix-option2" name="prefix" value="Mr" onclick="showOtherPrefixInput(false)">
+                    <label for="prefix-option2" class="section">นาย</label>
+                    <input type="radio" id="prefix-option3" name="prefix" value="Mrs" onclick="showOtherPrefixInput(false)">
+                    <label for="prefix-option3" class="section">นาง</label>
+                    <input type="radio" id="prefix-option4" name="prefix" value="Other" onclick="showOtherPrefixInput(true)">
+                    <label for="prefix-option4" class="section">อื่นๆ โปรดระบุ</label>
+                    <div id="other-prefix-container" style="display: none;">
+                        <input type="text" name="other-prefix" id="other-prefix" class="input-form" placeholder="Other...">
+                        <p id="error-prefix-other" style="color: red;"></p>
+                    </div>
+                    <p id="error-prefix" style="color: red;"></p>
+                </div>
+                <div class="formbox">
+                    <label class="section">ชื่อ :</label>
+                    <input type="text" name="firstname" id="firstname" class="input-form" placeholder="Firstname">
+                </div>
+                <div class="formbox">
+                    <label class="section">นามสกุล :</label>
+                    <input type="text" name="lastname" id="lastname" class="input-form" placeholder="Lastname">
+                </div>
+                <div class="formbox">
+                    <label class="section">หมายเลขบัตรประชาชน :</label>
+                    <input type="text" name="id-card-number" id="id-card-number" class="input-form" placeholder="ID Card Number" minlength="13" maxlength="13" oninput="validateIDCardNumber()">
+                    <p id="id-card-error" style="color: red; display: none;">หมายเลขบัตรประชาชนต้องมี 13 หลักและเป็นตัวเลขเท่านั้น</p>
+                </div>
+                <div class="formbox">
+                    <label class="section">วันเดือนปีเกิด :</label>
+                    <input type="date" name="birthday" id="birthday" class="input-form" placeholder="Birthday">
+                </div>
+                <div class="formbox">
+                    <label class="section">ที่อยู่ :</label>
+                    <div class="formbox">
+                        <label class="section">จังหวัด :</label>
+                        <input type="text" id="province" name="province" class="input-form" placeholder="จังหวัด">
+                    </div>
+                    <div class="formbox">
+                        <label class="section">อำเภอ :</label>
+                        <input type="text" id="amphoe" name="amphoe" class="input-form" placeholder="อำเภอ">
+                    </div>
+                    <div class="formbox">
+                        <label class="section">ตำบล :</label>
+                        <input type="text" id="district" name="district" class="input-form" placeholder="ตำบล">
+                    </div>
+                    <div class="formbox">
+                        <label class="section">รหัสไปรษณีย์ :</label>
+                        <input type="text" id="zipcode" name="zipcode" class="input-form" placeholder="รหัสไปรษณีย์">
+                    </div>
+                    <div class="formbox">
+                        <textarea name="address-details" id="address-details" class="input-form" placeholder="รายละเอียดที่อยู่ ระบุตามที่อยู่ตามบัตรประชาชน"></textarea>
+                    </div>
+                </div>
+                <div class="formbox">
+                    <label class="section">รูปถ่ายด้านหน้าบัตรประชาชน :</label>
+                    <input type="file" name="image" id="photo-IDcard"/>
+                </div>
+                <div class="formbox">
+                    <label class="section">รูปถ่ายคู่กับบัตรประชาชน :</label>
+                    <input type="file" name="image" id="photo-rair-IDCard"/>
+                </div>
+                <!-- <div class="formbox">
+                    <label class="section">รูปถ่ายด้านหน้าบัตรประชาชน :</label>
+                    <div class="upload-container">
+                        <div class="images-container" id="container-photo-IDcard"></div>
+                        <i class="fa-solid fa-image upload-icon" id="icon-photo-IDcard"></i>
+                        <input type="file" name="image" id="photo-IDcard" class="image-upload" accept="image/*" />
+                    </div>
+                </div>
+                <div class="formbox">
+                    <label class="section">รูปถ่ายคู่กับบัตรประชาชน :</label>
+                    <div class="upload-container">
+                        <div class="images-container" id="container-photo-rair-IDCard"></div>
+                        <i class="fa-solid fa-image upload-icon" id="icon-photo-rair-IDCard"></i>
+                        <input type="file" name="image" id="photo-rair-IDCard" class="image-upload" accept="image/*" />
+                    </div>
+                </div> -->
+            </div>
+            <!-- นิติบุคคล -->
+            <div id="corporate-container" style="display: none;">
+                <div class="formbox">
+                    <label class="section">ประเภทนิติบุคคล :</label>
+                    <input type="radio" id="corporate-option1" name="corporate" value="Limited">
+                    <label for="corporate-option1" class="section">บริษัทจำกัด</label>
+                    <input type="radio" id="corporate-option2" name="corporate" value="PublicLimited">
+                    <label for="corporate-option2" class="section">บริษัทจำกัดมหาชน</label>
+                    <input type="radio" id="corporate-option3" name="corporate" value="Partnership">
+                    <label for="corporate-option3" class="section">ห้างหุ้นส่วนสามัญนิติบุคคล</label>
+                    <input type="radio" id="corporate-option4" name="corporate" value="LimitedPartnership">
+                    <label for="corporate-option4" class="section">ห้างหุ้นส่วนจำกัด</label>
+                    <input type="radio" id="corporate-option5" name="corporate" value="Foundation">
+                    <label for="corporate-option5" class="section">มูลนิธิ</label>
+                    <input type="radio" id="corporate-option6" name="corporate" value="Association">                    
+                    <label for="corporate-option6" class="section">สมาคม</label>
+                </div>
+                <div class="formbox">
+                    <label class="section">ชื่อบริษัท :</label>
+                    <input type="text" name="corporate-name" id="corporate-name" class="input-form" placeholder="Corporate Name">
+                </div>
+                <div class="formbox">
+                    <label class="section">เลขจดทะเบียนนิติบุคคล :</label>
+                    <input type="text" name="corporate-registration-number" id="corporate-registration-numbe" class="input-form" placeholder="Corporate Registration Numbe" minlength="13" maxlength="13" oninput="validateCorporateRegistrationNumbe()">
+                    <p id="corporate-registration-numbe-error" style="color: red; display: none;">หมายเลขเลขจดทะเบียนนิติบุคคล 13 หลักและเป็นตัวเลขเท่านั้น</p>
+                </div>
+                <div class="formbox">
+                    <label class="section">ที่อยู่จดทะเบียนบริษัท :</label>
+                    <div class="formbox">
+                        <label class="section">จังหวัด :</label>
+                        <input type="text" id="province1" name="province" class="input-form" placeholder="จังหวัด">
+                    </div>
+                    <div class="formbox">
+                        <label class="section">อำเภอ :</label>
+                        <input type="text" id="amphoe1" name="amphoe" class="input-form" placeholder="อำเภอ">
+                    </div>
+                    <div class="formbox">
+                        <label class="section">ตำบล :</label>
+                        <input type="text" id="district1" name="district" class="input-form" placeholder="ตำบล">
+                    </div>
+                    <div class="formbox">
+                        <label class="section">รหัสไปรษณีย์ :</label>
+                        <input type="text" id="zipcode1" name="zipcode" class="input-form" placeholder="รหัสไปรษณีย์">
+                    </div>
+                    <div class="formbox">
+                        <textarea name="address-details" id="address-details1" class="input-form" placeholder="ที่อยู่จดทะเบียนบริษัท กรอกที่อยู่ตาามหนังสือรับรอง/ภ.พ.20 ฉบับล่าสุด"></textarea>
+                    </div>
+                </div>
+                <div class="formbox">
+                    <label class="section">หนังสือรับรองบริษัท :</label>
+                    <input type="file" name="image" id="company-certificate"/>
+                </div>
+                <div class="formbox">
+                    <label class="section">สำเนาบัตรประชาชนกรรมการผู้ลงนาม :</label>
+                    <input type="file" name="image" id="copy-director-IDcard"/>
+                </div>
+                <!-- <div class="formbox">
+                    <label class="section">หนังสือรับรองบริษัท :</label>
+                    <div class="upload-container">
+                        <div class="images-container" id="container-company-certificate"></div>
+                        <i class="fa-solid fa-image upload-icon" id="icon-company-certificate"></i>
+                        <input type="file" name="image" id="company-certificate" class="image-upload" accept="image/*" />
+                    </div>
+                </div>
+                <div class="formbox">
+                    <label class="section">สำเนาบัตรประชาชนกรรมการผู้ลงนาม :</label>
+                    <div class="upload-container">
+                        <div class="images-container" id="container-copy-director-IDcard"></div>
+                        <i class="fa-solid fa-image upload-icon" id="icon-copy-director-IDcard"></i>
+                        <input type="file" name="image" id="copy-director-IDcard" class="image-upload" accept="image/*" />
+                    </div>
+                </div> -->
+            </div>
+            <p id="form2-error" class="error-message">กรุณากรอกข้อมูลให้ครบถ้วน</p>
+            <button type="button" class="btn-back" onclick="showForm1()">ย้อนกลับ</button>
+            <button type="button" class="btn" onclick="if (validateForm2()) showForm3()">ถัดไป</button>
+        </div>
+        
+        <div id="form3" style="display: none;">
+            <div class="formbox">
+                <label class="section">จดทะเบียนภาษีมูลค่าเพิ่ม :</label>
+                <input type="radio" id="VAT-option1" name="VAT" value="VAT-No" onclick="showVAToffice(false)">
+                <label for="VAT-option1" class="section">ไม่</label>
+                <input type="radio" id="VAT-option2" name="VAT" value="VAT-Yes" onclick="showVAToffice(true)">                    
+                <label for="VAT-option2" class="section">ใช่</label>
+                <div id="VAT-office" style="display: none;">
+                    <label class="section">สำนักงานของบริษัท :</label>
+                    <input type="radio" id="office" name="office" value="office">
+                    <label for="office" class="section">สำนักงานใหญ่</label>
+                    <p id="error-office" style="display: none; color: red;"></p>
+                    <div class="formbox">
+                        <label class="section">ใบทะเบียนภาษีมูลค่าเพิ่ม(ภ.พ.20) :</label>
+                        <input type="file" name="image" id="VAT-certificate" />
+                    </div>
+                    <!-- <div class="formbox">
+                        <label class="section">ใบทะเบียนภาษีมูลค่าเพิ่ม(ภ.พ.20) :</label>
+                        <div class="upload-container">
+                            <div class="images-container" id="container-VAT-certificate"></div>
+                            <i class="fa-solid fa-image upload-icon" id="VAT-certificate"></i>
+                            <input type="file" name="image" id="VAT-certificate" class="image-upload" accept="image/*" />
+                        </div>
+                    </div> -->
+                </div>
+                <p id="error-vat" style="display: none; color: red;"></p>
+            </div>
+            <div class="formbox">
+                <input type="checkbox" name="checkbox" id="checkbox"><label>ฉันยอมรับ เงื่อนไขการใช้บริการ และ นโบายความเป็นส่วนตัว</label>
+                <p id="error-checkbox" style="display: none; color: red;"></p>
+            </div>
+            <p id="form3-error" class="error-message">กรุณากรอกข้อมูลให้ครบถ้วน</p>
+            <button type="button" class="btn-back" onclick="showForm2()">ย้อนกลับ</button>
+            <button type="button" class="btn" id="form4-submit-button" onclick="if (validateForm3()) showForm4()">ยืนยัน</button>
+        </div>
+        <div id="form4" style="display: none;">
+            <div class="formbox">
+                <label class="section">ยืนยันสำเสร็จแล้ว</label>
+            </div>
+            <div class="formbox">
+                <label class="start">เริ่มต้นขายของกันเลย</label>
+            </div>
+            <a href="/selling">
+                <button type="button" class="btn">เริ่มเลย</button>
+            </a>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('VAT-certificate').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('image-preview').src = e.target.result;
+                    document.getElementById('uploaded-image').style.display = 'block';
+                    document.getElementById('VAT-certificate').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // $.Thailand({ 
+        //     database: './jquery.Thailand.js/database/db.json', // path หรือ url ไปยัง database
+        //     $district: $('#province'), // input ของจังหวัด
+        //     $amphoe: $('#amphoe'), // input ของอำเภอ
+        //     $province: $('#district'), // input ของตำบล
+        //     $zipcode: $('#zipcode'), // input ของรหัสไปรษณีย์
+        // });
+        
+        function validateForm1() {
+            var shopName = document.getElementById('shop-name');
+            var phoneNumber = document.getElementById('phone-number');
+            var form1Error = document.getElementById('form1-error');
+            var isValid = true;
+
+            shopName.addEventListener('keyup', function() {
+                form1Error.style.display = 'none';
+            });
+
+            phoneNumber.addEventListener('keyup', function() {
+                form1Error.style.display = 'none';
+            });
+
+            // Reset previous errors
+            shopName.classList.remove('input-error');
+            phoneNumber.classList.remove('input-error');
+            form1Error.style.display = 'none';
+
+            if (shopName.value.trim() === '') {
+                shopName.classList.add('input-error');
+                isValid = false;
+            }
+
+            if (phoneNumber.value.trim() === '' || phoneNumber.value.length !== 10 || isNaN(phoneNumber.value)) {
+                phoneNumber.classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('phone-error').style.display = 'none';
+                form1Error.style.display = 'none';
+            }
+
+            if (!isValid) {
+                form1Error.style.display = 'block';
+            }
+
+            return isValid;
+        }
+
+        function validateForm2() {
+            let isValid = true;
+            const sellerType = document.querySelector('input[name="seller-type"]:checked');
+            const form2Error = document.getElementById('form2-error');
+            const errorSellerType = document.getElementById('error-sellertype');
+            const errorPrefix = document.getElementById('error-prefix');
+            const errorPrefixOther = document.getElementById('error-prefix-other');
+
+            document.querySelectorAll('input[name="seller-type"]').forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    errorSellerType.style.display = 'none';
+                    form2Error.style.display = 'none';
+                });
+            });
+
+            if (!sellerType) {
+                errorSellerType.innerText = "กรุณาเลือกประเภทผู้ขาย";
+                // form2Error.style.display = 'block';
+                isValid = false; // ตั้งค่า isValid เป็น false เมื่อไม่ได้เลือกประเภทผู้ขาย
+            } else {
+                form2Error.style.display = 'none';
+                errorSellerType.style.display = 'none';
+            }
+            
+            // ตรวจสอบสำหรับประเภท 'individual'
+            if (sellerType && sellerType.value === 'individual') {
+                const requiredFields = ['firstname', 'lastname', 'id-card-number', 'birthday', 'province', 'amphoe', 'district', 'zipcode' , 'address-details' , 'photo-IDcard' , 'photo-rair-IDCard'];
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value) {
+                        isValid = false;
+                        element.style.border = '1px solid red';
+                    } else {
+                        element.style.border = '';
+                    }
+                });
+
+                // ตรวจสอบค่าจาก validateIDCardNumber() และ other-prefix
+                isValid = validateIDCardNumber() && isValid;
+                const prefix = document.querySelector('input[name="prefix"]:checked');
+                if (!prefix) {
+                    isValid = false;
+                    errorPrefix.innerText = "กรุณาเลือกคำนำหน้า";
+                    // form2Error.style.display = 'block';
+                } else if (prefix.value === 'Other') {
+                    const otherPrefix = document.querySelector('input[name="other-prefix"]').value;
+                    if (!otherPrefix) {
+                        isValid = false;
+                        errorPrefixOther.innerText = "กรุณาระบุคำนำหน้าอื่นๆ";
+                        // form2Error.style.display = 'block';
+                    }
+                }
+            } 
+            // ตรวจสอบสำหรับประเภท 'corporate'
+            else if (sellerType && sellerType.value === 'corporate') {
+                const requiredFields = ['corporate-name', 'corporate-registration-number', 'province1', 'amphoe1', 'district1', 'zipcode1', 'address-details1', 'company-certificate', 'copy-director-IDcard'];
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value) {
+                        isValid = false;
+                        element.style.border = '1px solid red';
+                    } else {
+                        element.style.border = '';
+                    }
+                });
+
+                // ตรวจสอบค่าจาก validateCorporateRegistrationNumbe()
+                isValid = validateCorporateRegistrationNumbe() && isValid;
+                const corporateType = document.querySelector('input[name="corporate"]:checked');
+                if (!corporateType) {
+                    isValid = false;
+                    // form2Error.innerText = "กรุณาเลือกประเภทนิติบุคคล";
+                    // form2Error.style.display = 'block';
+                }
+            }
+
+            // หากไม่ผ่านการตรวจสอบ isValid
+            if (!isValid) {
+                form2Error.innerText = "กรุณากรอกข้อมูลให้ครบถ้วน"; // แสดงข้อความแจ้งเตือน
+                form2Error.style.display = 'block'; // แสดงข้อความแจ้งเตือน
+            } else {
+                form2Error.style.display = 'none'; // ซ่อนข้อความแจ้งเตือนหากผ่านการตรวจสอบ
+                // showForm3();
+            }
+    
+            return isValid;
+        }
+
+        function validateForm3() {
+            let isValid = true;
+            const VAT = document.querySelector('input[name="VAT"]:checked');
+            const errorVAT = document.getElementById('error-vat');
+            const form3Error = document.getElementById('form3-error');
+            const checkBox = document.getElementById('checkbox');
+            const errorcheckbox = document.getElementById('error-checkbox');
+
+            document.querySelectorAll('input[name="VAT"]').forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                    errorVAT.style.display = 'none';
+                    form3Error.style.display = 'none';
+                });
+            });
+
+            if (!VAT) {
+                errorVAT.innerText = "กรุณาเลือกประเภทจดทะเบียนภาษีมูลค่าเพิ่ม";
+                errorVAT.style.display = 'block';
+                isValid = false;
+            } else {
+                form3Error.style.display = 'none';
+                errorVAT.style.display = 'none';
+            }
+
+            if (!checkBox.checked) {
+                errorcheckbox.innerText = "กรุณากดยอมรับเงื่อนไข";
+                errorcheckbox.style.display = 'block';
+                isValid = false;
+            } else {
+                form3Error.style.display = 'none';
+                errorcheckbox.style.display = 'none';
+            }
+
+            if (VAT && VAT.value === 'VAT-Yes') {
+                const office = document.querySelector('input[name="office"]:checked');
+                const errorOffice = document.getElementById('error-office');
+                if (!office) {
+                    errorOffice.innerText = "กรุณาเลือกสำนักงานบริษัท";
+                    isValid = false;
+                } else {
+                    form3Error.style.display = 'none';
+                    errorOffice.style.display = 'none';
+                }
+
+                const requiredFields = ['VAT-certificate'];
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value) {
+                        isValid = false;
+                        element.style.border = '1px solid red';
+                    } else {
+                        element.style.border = '';
+                    }
+                });
+            }
+
+            if (!isValid) {
+                form3Error.innerText = "กรุณากรอกข้อมูลให้ครบถ้วน";
+                form3Error.style.display = 'block';
+            } else {
+                form3Error.style.display = 'none';
+            }
+
+            return isValid;
+        }
+
+        
+        function validatePhoneNumber() {
+            var phoneNumber = document.getElementById('phone-number').value;
+            var phoneNumberError = document.getElementById('phone-error');
+    
+            if (phoneNumber.trim() !== '' && !isNaN(phoneNumber) && phoneNumber.length === 10) {
+                phoneNumberError.style.display = 'none';
+                return true;
+            } else {
+                phoneNumberError.style.display = 'block';
+                return false;
+            }
+        }
+    
+        function validateIDCardNumber() {
+            var idCardNumber = document.getElementById('id-card-number').value;
+            var idCardError = document.getElementById('id-card-error');
+
+            if (idCardNumber.trim() !== '' && !isNaN(idCardNumber) && idCardNumber.length === 13) {
+                idCardError.style.display = 'none';
+                return true;
+            } else {
+                idCardError.style.display = 'block';
+                return false;
+            }
+        }
+
+        function validateCorporateRegistrationNumbe() {
+            var input = document.getElementById('corporate-registration-numbe').value;
+            var error = document.getElementById('corporate-registration-numbe-error');
+
+            if (input.trim() !== '' && !isNaN(input) && input.length === 13) {
+                error.style.display = 'none';
+                return true;
+            } else {
+                error.style.display = 'block';
+                return false;
+            }
+        }
+
+    
+        function showForm1() {
+            document.getElementById('form1').style.display = 'block';
+            document.getElementById('form2').style.display = 'none';
+            document.getElementById('form3').style.display = 'none';
+        }
+    
+        function showForm2() {
+            if (validateForm1()) {
+                document.getElementById('form2').style.display = 'block';
+                document.getElementById('form1').style.display = 'none';
+                document.getElementById('form3').style.display = 'none';
+            }
+            document.getElementById("menu-form").querySelectorAll("li").forEach(function(item) {
+                item.classList.remove("red-text");
+            });
+            document.querySelector(".form2").classList.add("red-text");
+        }
+    
+        function showForm3() {
+            if (validateForm2()) {
+                document.getElementById('form2').style.display = 'none';
+                document.getElementById('form3').style.display = 'block';
+            }
+            document.getElementById("menu-form").querySelectorAll("li").forEach(function(item) {
+                item.classList.remove("red-text");
+            });
+            document.querySelector(".form2").classList.add("red-text");
+            document.querySelector(".form3").classList.add("red-text");
+        }
+
+        function showForm4() {
+            // เรียกใช้ gatherFormData() เพื่อให้มั่นใจว่าข้อมูลล่าสุดถูกเก็บไว้ที่ formData
+            formData = gatherFormData();
+
+            saveFormDataToFile(formData);
+
+            if (validateForm3()) {
+                document.getElementById('form2').style.display = 'none';
+                document.getElementById('form3').style.display = 'none';
+                document.getElementById('form4').style.display = 'block';
+            }
+            document.getElementById("menu-form").querySelectorAll("li").forEach(function(item) {
+                item.classList.remove("red-text");
+            });
+            document.querySelector(".form2").classList.add("red-text");
+            document.querySelector(".form3").classList.add("red-text");
+            document.querySelector(".form4").classList.add("red-text");
+        }
+
+    
+        function showSellerType(type) {
+            var individualContainer = document.getElementById('individual-container');
+            var corporateContainer = document.getElementById('corporate-container');
+    
+            if (type === 'individual') {
+                individualContainer.style.display = 'block';
+                corporateContainer.style.display = 'none';
+            } else if (type === 'corporate') {
+                individualContainer.style.display = 'none';
+                corporateContainer.style.display = 'block';
+            }
+        }
+    
+        function showOtherPrefixInput(show) {
+            var otherPrefixContainer = document.getElementById('other-prefix-container');
+            if (show) {
+                otherPrefixContainer.style.display = 'block';
+            } else {
+                otherPrefixContainer.style.display = 'none';
+            }
+        }
+
+        function showVAToffice(show) {
+            var VAToffice = document.getElementById('VAT-office');
+            if (show) {
+                VAToffice.style.display = 'block';
+            } else {
+                VAToffice.style.display = 'none';
+            }
+        }
+
+
+        function gatherFormData() {
+            const formData = {};
+
+            // ข้อมูลจากฟอร์ม 1
+            formData.shopName = document.getElementById('shop-name').value;
+            formData.email = document.getElementById('email').innerText;
+            formData.phoneNumber = document.getElementById('phone-number').value;
+
+            // ข้อมูลจากฟอร์ม 2
+            formData.sellerType = document.querySelector('input[name="seller-type"]:checked')?.value;
+            
+            if (formData.sellerType === 'individual') {
+                formData.individual = {
+                    prefix: document.querySelector('input[name="prefix"]:checked')?.value,
+                    otherPrefix: document.getElementById('other-prefix').value,
+                    firstName: document.getElementById('firstname').value,
+                    lastName: document.getElementById('lastname').value,
+                    idCardNumber: document.getElementById('id-card-number').value,
+                    birthday: document.getElementById('birthday').value,
+                    address: {
+                        province: document.getElementById('province').value,
+                        amphoe: document.getElementById('amphoe').value,
+                        district: document.getElementById('district').value,
+                        zipcode: document.getElementById('zipcode').value,
+                        details: document.getElementById('address-details').value
+                    },
+                    photoIDCard: document.getElementById('photo-IDcard').files[0]?.name,
+                    photoWithIDCard: document.getElementById('photo-rair-IDCard').files[0]?.name
+                };
+            } else if (formData.sellerType === 'corporate') {
+                formData.corporate = {
+                    corporateType: document.querySelector('input[name="corporate"]:checked')?.value,
+                    corporateName: document.getElementById('corporate-name').value,
+                    corporateRegistrationNumber: document.getElementById('corporate-registration-numbe').value,
+                    address: {
+                        province: document.getElementById('province1').value,
+                        amphoe: document.getElementById('amphoe1').value,
+                        district: document.getElementById('district1').value,
+                        zipcode: document.getElementById('zipcode1').value,
+                        details: document.getElementById('address-details1').value
+                    },
+                    companyCertificate: document.getElementById('company-certificate').files[0]?.name,
+                    copyDirectorIDCard: document.getElementById('copy-director-IDcard').files[0]?.name
+                };
+            }
+
+            // ข้อมูลจากฟอร์ม 3
+            formData.VAT = document.querySelector('input[name="VAT"]:checked')?.value;
+            if (formData.VAT === 'VAT-Yes') {
+                formData.VATDetails = {
+                    office: document.querySelector('input[name="office"]:checked')?.value,
+                    VATCertificate: document.getElementById('VAT-certificate').files[0]?.name
+                };
+            }
+
+            formData.termsAccepted = document.getElementById('checkbox').checked;
+
+            return formData;
+        }
+
+        function saveFormDataToFile(formData) {
+            const jsonData = JSON.stringify(formData);
+            console.log('JSON data:', jsonData); // Log the JSON data to the console
+
+            fetch('/save-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: jsonData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // alert('Data saved successfully!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // alert('Failed to save data.');
+            });
+        }
+
+        document.querySelector('.start').addEventListener('click', function() {
+            window.location.href = '/selling.ejs';// ไป selling.ejs
+        });
+
+    </script>
+</body>
+</html>

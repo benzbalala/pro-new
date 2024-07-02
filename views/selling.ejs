@@ -1,0 +1,516 @@
+<%- include('index.ejs') %>	
+
+<style>
+.upload-container,
+.category-name,
+.input-container,
+.details,
+.name-product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+    margin: 2% auto; /* เปลี่ยน margin เป็น auto ที่เหลือเอาออก */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%; /* ปรับความกว้างให้กล่องเป็นเดิมเก่า */
+}
+
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.remove-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.remove-icon:hover {
+    background: rgba(255, 72, 72, 0.5);
+}
+
+.upload-icon {
+    font-size: 50px;
+    color: #d1bb9e;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.upload-icon:hover {
+    color: #a79277;
+}
+
+#image-upload {
+    display: none;
+}
+
+.upload-container span,
+.details span,
+.input-container span,
+.category-name span,
+.name-product span {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 20px;
+    color: #000000;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.input-with-icon,
+.input-price,
+.number-products {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-width: 200px;
+}
+
+.product-type,
+.input-product-type,
+.price,
+.number-products {
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* ปรับขนาด input ให้เต็มกว่า */
+}
+
+/* .add-icon,
+.delete-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+} */
+
+/* #add,
+#delete {
+    color: #85c0ff;
+}
+
+#add:hover {
+    color: #59a9fe;
+} */
+
+#delete {
+    color: #dc3545;
+}
+
+.add-set-icon {
+    cursor: pointer;
+    font-size: 30px;
+    user-select: none;
+    color: #d1bb9e;
+    margin-top: 20px; /* เพิ่มระยะห่างด้านบน */
+}
+
+#delete-set {
+    cursor: pointer;
+}
+
+#delete-set:hover {
+    color: red;
+}
+
+.add-set-icon:hover {
+    color: #a79277;
+}
+
+#product-details,
+#nameProduct {
+    height: auto;
+    box-sizing: border-box;
+    width: 60%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    overflow-wrap: auto;
+}
+
+#category,
+#category option {
+    width: 150px;
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* เพิ่มระยะห่างด้านบน */
+    margin: 30px;
+}
+
+.btn-back,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    width: 100px;
+    font-size: 17px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-back {
+    background-color: #dfdfdf;
+    color: rgb(0, 0, 0);
+    margin-right: 10px; /* ระยะห่างด้านขวาของปุ่ม .btn-back */
+}
+
+.btn {
+    background-color: #e9caab;
+    color: rgb(0, 0, 0);
+    margin-left: 10px; /* ระยะห่างด้านซ้ายของปุ่ม .btn */
+}
+
+.btn-back:hover {
+    color: #ffffff;
+    background-color: #e88e97;
+}
+
+.btn:hover {
+    color: #ffffff;
+    background-color: #b99470;
+}
+
+</style>
+<body>
+    <%- include('head.ejs') %>
+
+    <div id="form">
+        <div id="form-selling1">
+            <div class="upload-container">
+                <span>รูปภาพสินค้า</span>
+                <div id="images-container"></div>
+                <i class="fa-solid fa-image upload-icon"></i>
+                <input type="file" name="image" id="image-upload" accept="image/*" multiple />
+            </div>
+
+            <div class="name-product">
+                <span>ชื่อสินค้า</span>
+                <textarea name="nameProduct" id="nameProduct" class="nameProduct" placeholder="ชื่อสินค้า"></textarea>
+            </div>
+    
+            <div class="category-name">
+                <span>หมวดหมู่</span>
+                <select name="category" id="category">
+                    <option value="เสื้อผ้า">เสื้อผ้า</option>
+                    <option value="กระเป๋า">กระเป๋า</option>
+                    <option value="รองเท้า">รองเท้า</option>
+                    <option value="เครื่องประดับ">เครื่องประดับ</option>
+                    <option value="ของใช้ภายในบ้าน">ของใช้ภายในบ้าน</option>
+                    <option value="อาหารเครื่องดื่ม">อาหารเครื่องดื่ม</option>
+                    <option value="งานฝีมือ">งานฝีมือ</option>
+                    <option value="ความงาม">ความงาม</option>
+                </select>
+            </div>
+    
+            <div class="details">
+                <span>รายละเอียดสินค้า</span>
+                <textarea name="product-details" id="product-details" class="product-details" placeholder="รายละเอียดต่างๆ ของสินค้า"></textarea>
+            </div>
+    
+            <div class="input-container">
+                <span>ประเภทสินค้า</span>
+                <div class="input-group" id="input-group1">
+                    <div class="input-with-icon" id="input-with-icon1">
+                        <input type="text" class="product-type" name="productType1" placeholder="ประเภท เช่น สี">
+                        <input type="text" class="input-product-type" name="inputProductType1" placeholder="ฟ้า/ชมพู/ส้ม/เขียว เป็นต้น">
+                    </div>
+                    <div class="input-with-icon" id="input-with-icon2">
+                        <input type="text" class="product-type" name="productType2" placeholder="ประเภท เช่น ขนาด">
+                        <input type="text" class="input-product-type" name="inputProductType2" placeholder="25 ซม./30 มม./5 นิ้ว/1 เมตร เป็นต้น">
+                    </div>
+                    <div class="input-price">
+                        <input type="number" class="price" name="price" placeholder="ราคาสินค้า">
+                    </div>
+                    <div class="input-number-products">
+                        <input type="number" class="number-products" name="number-products" placeholder="จำนวนสินค้า">
+                    </div>
+                    <span class="delete-set-icon" onclick="deleteInputSet(this)"><i class="fa-solid fa-minus" id="delete-set"></i></span>
+                </div>                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a class="add-set-icon" onclick="addInputSet()"><i class="fa-solid fa-circle-plus" id="add-set"></i></a>
+                </div>
+            </div>
+            <!-- <div>
+                <p id="form-selling1-error" class="error-message">กรุณากรอกข้อมูลให้ครบถ้วน</p>
+            </div> -->
+            <div class="btn-container">
+                <a href="/users/home-login">
+                    <button type="button" class="btn-back">ยกเลิก</button>
+                </a>
+                <button type="button" class="btn" onclick="saveProductData()">ถัดไป</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="form2">
+
+    </div>
+
+    <script>
+        document.querySelector('.upload-icon').addEventListener('click', function() {
+            document.getElementById('image-upload').click();
+        });
+        
+        let num = 0; // Initialize num outside the event listener
+
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const imagesContainer = document.getElementById('images-container');
+
+            for (const file of files) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageWrapper = document.createElement('div');
+                    imageWrapper.className = 'image-wrapper';
+
+                    const img = document.createElement('img');
+                    img.id = `image${num + 1}`;
+                    img.src = e.target.result;
+                    img.alt = 'Uploaded Image';
+
+                    const removeIcon = document.createElement('span');
+                    removeIcon.className = 'remove-icon';
+                    removeIcon.innerHTML = '&#x2716;';
+                    removeIcon.addEventListener('click', function() {
+                        imagesContainer.removeChild(imageWrapper);
+                        // Decrement num when an image is removed, to maintain a correct count
+                        num--;
+                        // Update IDs of remaining images to ensure they remain unique and sequential
+                        const remainingImages = imagesContainer.getElementsByClassName('image-wrapper');
+                        for (let i = 0; i < remainingImages.length; i++) {
+                            const imgElement = remainingImages[i].getElementsByTagName('img')[0];
+                            imgElement.id = `image${i + 1}`;
+                        }
+                    });
+
+                    imageWrapper.appendChild(img);
+                    imageWrapper.appendChild(removeIcon);
+                    imagesContainer.appendChild(imageWrapper);
+
+                    num++; // Increment num after appending the image
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Reset the input field so the same file can be uploaded again if needed
+            event.target.value = '';
+        });
+
+        let numSets = 1;
+        let numInputs = 2;
+
+        function deleteInputSet(element) {
+            const inputGroup = element.closest('.input-group');
+            inputGroup.remove();
+        }
+
+        function addInputSet() {
+            numSets++;
+            numInputs += 2; // เพิ่ม 2 เพื่อจัดการกับ input-with-icon ในแต่ละ input-group
+
+            const inputContainer = document.querySelector('.input-container');
+            const addSetIcon = inputContainer.querySelector('.add-set-icon');
+
+            const newInputGroup = document.createElement('div');
+            newInputGroup.className = 'input-group';
+            newInputGroup.id = `input-group${numSets}`;
+
+            const newInputWithIcon1 = document.createElement('div');
+            newInputWithIcon1.className = 'input-with-icon';
+            newInputWithIcon1.id = `input-with-icon${numInputs - 1}`;
+
+            const newProductType1 = document.createElement('input');
+            newProductType1.type = 'text';
+            newProductType1.className = 'product-type';
+            newProductType1.name = `productType${numSets}`; // ตั้งชื่อ name สำหรับ productType
+            newProductType1.placeholder = 'ประเภท เช่น สี';
+
+            const newInputProductType1 = document.createElement('input');
+            newInputProductType1.type = 'text';
+            newInputProductType1.className = 'input-product-type';
+            newInputProductType1.name = `inputProductType${numSets}`; // ตั้งชื่อ name สำหรับ inputProductType
+            newInputProductType1.placeholder = 'ฟ้า/ชมพู/ส้ม/เขียว เป็นต้น';
+
+            newInputWithIcon1.appendChild(newProductType1);
+            newInputWithIcon1.appendChild(newInputProductType1);
+
+            const newInputWithIcon2 = document.createElement('div');
+            newInputWithIcon2.className = 'input-with-icon';
+            newInputWithIcon2.id = `input-with-icon${numInputs}`;
+
+            const newProductType2 = document.createElement('input');
+            newProductType2.type = 'text';
+            newProductType2.className = 'product-type';
+            newProductType2.name = `productType${numSets}`; // ตั้งชื่อ name สำหรับ productType
+            newProductType2.placeholder = 'ประเภท เช่น ขนาด';
+
+            const newInputProductType2 = document.createElement('input');
+            newInputProductType2.type = 'text';
+            newInputProductType2.className = 'input-product-type';
+            newInputProductType2.name = `inputProductType${numSets}`; // ตั้งชื่อ name สำหรับ inputProductType
+            newInputProductType2.placeholder = '25 ซม./30 มม./5 นิ้ว/1 เมตร เป็นต้น';
+
+            newInputWithIcon2.appendChild(newProductType2);
+            newInputWithIcon2.appendChild(newInputProductType2);
+
+            newInputGroup.appendChild(newInputWithIcon1);
+            newInputGroup.appendChild(newInputWithIcon2);
+
+            const newInputPrice = document.createElement('div');
+            newInputPrice.className = 'input-price';
+            newInputPrice.innerHTML = `<input type="number" class="price" name="price${numSets}" placeholder="ราคาสินค้า">`;
+
+            newInputGroup.appendChild(newInputPrice);
+
+            // Add input for number of products
+            const newInputNumberProducts = document.createElement('div');
+            newInputNumberProducts.className = 'input-number-products'; // Adjusted class name for consistency
+            newInputNumberProducts.innerHTML = `<input type="number" class="number-products" name="numberProducts${numSets}" placeholder="จำนวนสินค้า">`;
+
+            newInputGroup.appendChild(newInputNumberProducts);
+
+            const deleteSetIcon = document.createElement('span');
+            deleteSetIcon.className = 'delete-set-icon';
+            deleteSetIcon.innerHTML = `<i class="fa-solid fa-minus" id="delete-set"></i>`;
+            deleteSetIcon.addEventListener('click', function() {
+                deleteInputSet(this);
+            });
+
+            newInputGroup.appendChild(deleteSetIcon);
+
+            inputContainer.insertBefore(newInputGroup, addSetIcon.parentNode);
+        }
+
+        document.getElementById('product-details').addEventListener('input', function () {
+            this.style.height = 'auto'; // กำหนดให้ textarea ปรับความสูงตามบรรทัดของข้อความใหม่
+            this.style.height = (this.scrollHeight + 2) + 'px'; // ปรับความสูงของให้พอดีกับข้อความ
+        });
+
+        document.getElementById('nameProduct').addEventListener('input', function () {
+            this.style.height = 'auto'; // กำหนดให้ textarea ปรับความสูงตามบรรทัดของข้อความใหม่
+            this.style.height = (this.scrollHeight + 2) + 'px'; // ปรับความสูงของให้พอดีกับข้อความ
+        });
+
+        document.querySelector('.btn-back').addEventListener('click', function() {
+            window.location.href = '/home-login.ejs';
+        });
+
+        async function saveProductData() {
+            try {
+                const images = [];
+                document.querySelectorAll('#images-container img').forEach(img => {
+                    images.push({
+                        id: img.id,
+                        src: img.src
+                    });
+                });
+
+                const category = document.getElementById('category').value;
+                const productDetails = document.getElementById('product-details').value;
+                const nameProduct = document.getElementById('nameProduct').value;
+
+                const productTypes = [];
+                const inputGroups = document.querySelectorAll('.input-group');
+                inputGroups.forEach(group => {
+                    const productType1 = group.querySelector('.product-type').value;
+                    const inputProductType1 = group.querySelector('.input-product-type').value;
+                    const productType2 = group.querySelectorAll('.product-type')[1].value;
+                    const inputProductType2 = group.querySelectorAll('.input-product-type')[1].value;
+                    const price = group.querySelector('.price').value;
+                    const numberProducts = group.querySelector('.number-products').value; // เพิ่มการดึงค่าจำนวนสินค้า
+
+                    productTypes.push({
+                        productType1,
+                        inputProductType1,
+                        productType2,
+                        inputProductType2,
+                        price,
+                        numberProducts
+                    });
+                });
+
+                const productData = {
+                    images,
+                    category,
+                    productDetails,
+                    productTypes,
+                    nameProduct
+                };
+
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                };
+
+                const response = await fetch('/save-product', requestOptions);
+
+                if (!response.ok) {
+                    throw new Error('Failed to save data');
+                }
+
+                const result = await response.json();
+                console.log(result.message);
+                // alert('Data saved successfully!');
+
+            } catch (error) {
+                console.error('Error:', error);
+                // alert('Failed to save data. Please try again.');
+            }
+        }
+        
+    </script>
+</body>
+</html>
