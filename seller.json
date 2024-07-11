@@ -1,7 +1,7 @@
 {
   "shopName": "admin",
   "email": "admin21@gmail.com",
-  "phoneNumber": "0627602566",
+  "phoneNumber": "4523628521",
   "sellerType": "individual",
   "individual": {
     "prefix": "Ms",
@@ -9,16 +9,16 @@
     "firstName": "รังสิญา",
     "lastName": "เฮงสธนกุล",
     "idCardNumber": "1111111111111",
-    "birthday": "2024-06-30",
+    "birthday": "2024-07-02",
     "address": {
       "province": "สมุทรสาคร",
       "amphoe": "บ้านแพ้ว",
       "district": "หนองบัว",
       "zipcode": "74120",
-      "details": "dddd"
+      "details": "aaaaaaaa"
     },
-    "photoIDCard": ".jpg",
-    "photoWithIDCard": "@all_need_is.jpg"
+    "photoIDCard": "@all_need_is.jpg",
+    "photoWithIDCard": "2a7a3be0-6bc4-485c-9d2f-0ce00ab306bb.png"
   },
   "VAT": "VAT-No",
   "termsAccepted": true

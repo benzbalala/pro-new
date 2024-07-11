@@ -1,3 +1,217 @@
+<style>
+.search-box {
+    background: white;
+    width: 180px;
+    padding: 5px;
+    margin: 10px auto;
+    border-radius: 25px;
+    line-height: 20px;
+    display: flex;
+    transition: all 1s;
+    box-sizing: border-box;
+    border: 1px solid white;
+    margin-right: 250px;
+    position: relative;
+    left: 10%;
+}
+
+.search {
+    /* display: none; */
+    width: 100px;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    font-size: 1em;
+    padding: 5px 10px;
+    margin: 0;
+    transition: all 1s
+}
+
+.fa {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+    color: #B99470;
+    font-size: 1.2em;
+    transition: all 1s;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.search-box:hover {
+    width: 300px;
+    cursor: pointer;
+}
+
+.search-box:hover input {
+    width: 250px;
+    display: block;
+}
+
+.search-box:hover .fa {
+    background: #B99470;
+    color: white;
+}
+
+.sub-menu-wrap {
+    position: absolute;
+    top: 50px;
+    right: 10%;
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu {
+    max-height: 400px;
+}
+
+.sub-menu {
+    background-color: #DDDDDD;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 2px #c3c2c2;
+}
+
+.sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #383838;
+    margin: 15px 0 10px;
+}
+
+.uer-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.uer-info h3 {
+    font-family: "Poetsen One", sans-serif;
+    font-style: normal;
+    text-align: center;
+    font-weight: 500;
+}
+
+.uer-info i {
+    border-radius: 50%;
+    margin-right: 15px;
+    font-size: 50px;
+}
+
+.menu {
+    display: flex;
+}
+
+.menu i {
+    font-size: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.sub-menu-link {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    padding: 8px;
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.sub-menu-link:hover {
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logo:hover {
+    text-decoration: underline;
+}
+
+#icon {
+    font-size: 40px;
+    padding-top: 10%;
+    cursor: pointer;
+}
+
+#icon-basket {
+    padding: 20px;
+    position: absolute;
+    right: 90px;
+    top: 6%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.head {
+    min-height: 40%;
+    width: 100%;
+    background: #EBE3D5;
+    background-position: top center;
+    background-size: cover;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
+nav {
+    flex: 1;
+    text-align: right;
+}
+
+nav ul {
+    display: inline-block;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 70px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    font-family: sans-serif;
+}
+
+nav ul li button {
+    font-size: 18px;
+    color: black;
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer; /**/
+    font-family: sans-serif;
+}
+
+nav ul li button:hover,
+nav ul li a:hover {
+    color: #9b1111;
+}
+
+a {
+    text-decoration: none;
+    color: #201658;
+    font-size: 25px;
+}
+
+</style>
 <div class="head">
     <div class="navbar">
         <div class="logo">

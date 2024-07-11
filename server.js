@@ -234,6 +234,7 @@ const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
 const initializePassport = require('./passportConfig');
+const { name } = require('ejs');
 
 initializePassport(passport);
 
@@ -285,7 +286,8 @@ app.get('/selling', (req, res) => {
         }
 
         const formData = JSON.parse(data);
-        res.render('selling', { formData });
+        const username = req.user ? req.user.name : '';
+        res.render('selling', { formData, name: username });
     });
 });
 
@@ -427,7 +429,10 @@ app.post('/save-product', (req, res) => {
 
 /* test */
 app.get('/test',(req, res) => {
-    // res.render('test');
+    // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบแล้วและมี req.user ที่มีค่า name
+    // if (!req.user || !req.user.name) {
+    //     return res.status(401).send('Unauthorized');
+    // }
     //อ่านไฟล์ product
     fs.readFile(path.join(__dirname, 'product.json'), 'utf8', (err, jsonString) => {
         if (err) {
@@ -437,7 +442,7 @@ app.get('/test',(req, res) => {
         try {
             const data = JSON.parse(jsonString);
             // ส่งข้อมูล JSON ไปหน้า test
-            res.render('test', { products: data });
+            res.render('test', { products: data});
         } catch (err) {
             console.log('Error parsing JSON:', err);
             return res.status(500).send('Error parsing JSON');
